@@ -6,13 +6,19 @@ ninetyDaysInSeconds = 90*24*60*60;
 
 app.use
 (
-  helmet.hidePoweredBy(),
-  helmet.frameguard({action: 'deny'}),
-  helmet.xssFilter(),
-  helmet.noSniff(),
-  helmet.ieNoOpen(),
-  helmet.hsts({maxAge: ninetyDaysInSeconds, force: true})
-);
+  helmet({
+    frameguard: {
+      action: 'deny'
+    },
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'src'"],
+        styleSrc: ['style.com']
+      }
+    },
+    dnsPrefetchControl: false
+  }))
+
 
 
 
