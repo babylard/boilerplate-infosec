@@ -1,5 +1,8 @@
 const helmet = require("helmet");
+const express = require("express");
 const app = express();
+
+ninetyDaysInSeconds = 90*24*60*60;
 
 app.use
 (
@@ -7,7 +10,8 @@ app.use
   helmet.frameguard({action: 'deny'}),
   helmet.xssFilter(),
   helmet.noSniff(),
-  helmet.ieNoOpen()
+  helmet.ieNoOpen(),
+  helmet.hsts({maxAge: ninetyDaysInSeconds, force: true})
 );
 
 
